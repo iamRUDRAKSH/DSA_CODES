@@ -5,12 +5,14 @@ This repository is dedicated to providing a comprehensive collection of Data Str
 Contents
 
 Sorting Algorithms:
-Bubble Sort
-Insertion Sort
-Selection Sort
-Merge Sort
-Quick Sort
-Heap Sort
+<ul>
+  <li>Bubble Sort</li>
+  <li>Insertion Sort</li>
+  <li>Selection Sort</li>
+  <li>Merge Sort</li>
+  <li>Quick Sort</li>
+  <li>Heap Sort</li>
+</ul>
 
 Searching Algorithms:
 Linear Search
