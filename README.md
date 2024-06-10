@@ -26,7 +26,7 @@ Queues (Simple, Circular, Priority)
 Trees (Binary Tree, Binary Search Tree, AVL Tree, Red-Black Tree)
 Graphs (Representation, Traversals: BFS, DFS)
 Hash Tables
-Usage
+<h4>Usage</h4>
 Each algorithm and data structure is implemented in its own file with detailed comments and explanations. You can easily navigate through the repository to find the specific code you are interested in. Feel free to download, modify, and use the code as per your needs.
 
 How to Contribute
