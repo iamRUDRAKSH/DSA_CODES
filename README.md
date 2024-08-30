@@ -11,7 +11,8 @@ Sorting Algorithms:
   <li>Selection Sort</li>
   <li>Merge Sort</li>
   <li>Quick Sort</li>
-  <li>Heap Sort</li>
+  <li>Shell Sort</li>
+  <li>Radix Sort</li>
 </ul>
 
 Searching Algorithms:
