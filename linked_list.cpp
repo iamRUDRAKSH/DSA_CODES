@@ -16,7 +16,7 @@ public:
 
     void append(int value) {
         Node* nn = new Node(value);
-        if (head == nullptr)
+        if (!head)
             head = nn;
         else {
             Node* t = head;
@@ -27,11 +27,11 @@ public:
     }
 
     void printlist() {
-        if (head == nullptr)
+        if (!head)
             cout << "List is empty" << endl;
         else {
             Node* t = head;
-            while (t != nullptr) {
+            while (t) {
                 cout << t->data << "->";
                 t = t->next;
             }
@@ -42,8 +42,7 @@ public:
     Node* search(int value) {
         Node* t = head;
         Node* prev = nullptr;
-
-        while (t != nullptr) {
+        while (t) {
             if (t->data == value) {
                 cout << "Element " << value << " found" << endl;
                 return t;
@@ -57,7 +56,7 @@ public:
 
     void replace(int existing, int value) {
         Node* find = search(existing);
-        if (find != nullptr) {
+        if (!find) {
             find->data = value;
         } else {
             cout << "Element " << existing << " not found. Adding " << value << " to the end of the list." << endl;
@@ -67,7 +66,7 @@ public:
 
     void insertNext(int existing, int value) {
         Node* find = search(existing);
-        if (find != nullptr) {
+        if (!find) {
             Node* nn = new Node(value);
             nn->next = find->next;
             find->next = nn;
@@ -78,36 +77,29 @@ public:
     }
 
     void remove(int value) {
-        Node* prev = nullptr;
-        Node* t = head;
-        bool found = false;
-
-        while (t != nullptr) {
-            if (t->data == value) {
-                Node* temp = t; // Store the current node to delete it later
-                if (prev != nullptr) {
-                    prev->next = t->next;
-                } 
-                else {
-                    head = t->next;
-                }
-                t = t->next; // Move to the next node before deleting the current one
-                delete temp; // Delete the current node
-                found = true;
-                cout << "Element " << value << " removed" << endl;
-            } 
-            else {
-                prev = t;
-                t = t->next;
+        if (!head) {
+            cout << "Playlist is empty." << endl;
+            return;
+        }
+        while (head && head->data == value) {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+        }
+        Node* current = head;
+        while (current && current->next) {
+            if (current->next->data == value) {
+                Node* temp = current->next;
+                current->next = current->next->next;
+                delete temp;
+            } else {
+                current = current->next; // Only move to next if no deletion
             }
         }
-
-        if (!found)
-            cout << "Element " << value << " not found." << endl;
     }
 
     void pop(){
-        if (head == nullptr) {
+        if (!head) {
             cout << "List is empty." << endl;
             return;
         }
@@ -116,10 +108,26 @@ public:
         delete t;
     }
 
+    void reverse(){
+        if(!head){
+            cout << "List is empty." << endl;
+            return;
+        }
+        Node* prev = nullptr;
+        Node* current = head;
+        Node* next = nullptr;
+        while (current) {
+            next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
+        }
+    }
+
     ~LinkedList() {
         Node* current = head;
         Node* nn = nullptr;
-        while (current != nullptr) {
+        while (current) {
             nn = current->next;
             delete current;
             current = nn;
