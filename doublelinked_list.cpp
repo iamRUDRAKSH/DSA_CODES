@@ -1,18 +1,25 @@
 #include<iostream>
 using namespace std;
 
-struct Node{
-    int data;
-    Node *prev;
-    Node *next;
+// Node structure for a doubly linked list
+struct Node {
+    int data;        // Data stored in the node
+    Node *prev;      // Pointer to the previous node
+    Node *next;      // Pointer to the next node
 
+    // Constructor to initialize node with value and set pointers to nullptr
     Node(int val) : data(val), prev(nullptr), next(nullptr) {}
 };
 
-class DLL{
-    Node *head;
-    public:
-    DLL() : head(nullptr) {};
+// Doubly Linked List class
+class DLL {
+    Node *head;      // Pointer to the head of the list
+
+public:
+    // Constructor to initialize an empty list
+    DLL() : head(nullptr) {}
+
+    // Destructor to delete all nodes and free memory
     ~DLL() {
         while (head != nullptr) {
             Node *temp = head;
@@ -20,29 +27,34 @@ class DLL{
             delete temp;
         }
     }
-    void insertAtEnd(int val){
-        Node *nn = new Node(val);
-        if (!head)
-            head = nn;
-        else {
+
+    // Insert a new node with value at the end of the list
+    void insertAtEnd(int val) {
+        Node *nn = new Node(val); // Create a new node
+        if (!head) {
+            head = nn; // If list is empty, new node becomes head
+        } else {
             Node *t = head;
-            while (t->next)
-                t = t->next;
-            nn->prev = t;
-            t->next = nn;
+            while (t->next) {
+                t = t->next; // Traverse to the end of the list
+            }
+            nn->prev = t;   // Update new node's prev pointer
+            t->next = nn;   // Update last node's next pointer
         }
     }
+
+    // Remove all nodes with the specified value
     void remove(int val) {
         if (!head) {
             cout << "List is empty!!" << endl;
             return;
         }
 
-        // Remove nodes at the head with matching value
+        // Remove nodes from the head if they match the value
         while (head && head->data == val) {
             Node *temp = head;
             head = head->next;
-            if (head) head->prev = nullptr;
+            if (head) head->prev = nullptr; // Update new head's prev pointer
             delete temp;
         }
 
@@ -51,10 +63,10 @@ class DLL{
             if (t->data == val) {
                 Node *temp = t;
                 if (t->next) {
-                    t->next->prev = t->prev;
+                    t->next->prev = t->prev; // Update next node's prev pointer
                 }
                 if (t->prev) {
-                    t->prev->next = t->next;
+                    t->prev->next = t->next; // Update previous node's next pointer
                 }
                 t = t->next; // Move to the next node
                 delete temp; // Delete the current node
@@ -64,68 +76,77 @@ class DLL{
         }
     }
 
-    void insertAtHead(int val){
-        Node *nn = new Node(val);
-        if (!head)
-            head = nn;
-        else{
-            nn->next = head;
-            head->prev = nn;
-            head = nn;
+    // Insert a new node with value at the head of the list
+    void insertAtHead(int val) {
+        Node *nn = new Node(val); // Create a new node
+        if (!head) {
+            head = nn; // If list is empty, new node becomes head
+        } else {
+            nn->next = head;  // Update new node's next pointer
+            head->prev = nn;  // Update current head's prev pointer
+            head = nn;        // Update head to new node
         }
     }
-    void insertBefore(int val, int after){
-        Node *nn = new Node(val);
+
+    // Insert a new node with value before a specified existing node's value
+    void insertBefore(int val, int after) {
+        Node *nn = new Node(val); // Create a new node
         Node *t = head;
-        while(t && t->data != after)
-            t = t->next;
-        if(!t)
-            cout<<"Element not found!!"<<endl;
-        else{
-            if(t == head){
-                insertAtHead(val);
-            }
-            else{
-                nn->next = t;
-                t->prev->next = nn;
-                nn->prev = t->prev;
-                t->prev = nn;
+        while (t && t->data != after) {
+            t = t->next; // Traverse to find the specified node
+        }
+        if (!t) {
+            cout << "Element not found!!" << endl;
+        } else {
+            if (t == head) {
+                insertAtHead(val); // Insert before the head
+            } else {
+                nn->next = t;          // Update new node's next pointer
+                t->prev->next = nn;   // Update previous node's next pointer
+                nn->prev = t->prev;   // Update new node's prev pointer
+                t->prev = nn;         // Update found node's prev pointer
             }
         }
     }
-    void search(int val){
+
+    // Search for nodes with the specified value and print their position(s)
+    void search(int val) {
         Node *t = head;
         int count = 1;
-        while(t){
-            if(t->data == val)
-                cout<<"Element found at position "<<count<<endl;
-            t = t->next;
+        while (t) {
+            if (t->data == val) {
+                cout << "Element found at position " << count << endl;
+            }
+            t = t->next; // Move to the next node
             count++;
         }
     }
-    void pop(){
-        if(!head)
-            cout<<"List is empty!!"<<endl;
-        else if(head->next == nullptr){
-            delete head;
-            head = nullptr;
-        }
-        else{
+
+    // Remove the last node in the list
+    void pop() {
+        if (!head) {
+            cout << "List is empty!!" << endl;
+        } else if (head->next == nullptr) {
+            delete head; // If there's only one node, delete it
+            head = nullptr; // Set head to nullptr
+        } else {
             Node *t = head;
-            while(t->next){
-                t = t->next;
+            while (t->next) {
+                t = t->next; // Traverse to the last node
             }
-            t->prev->next = nullptr;
-            delete t;
+            t->prev->next = nullptr; // Update second-last node's next pointer
+            delete t; // Delete the last node
         }
     }
-    void printList(){
+
+    // Print the entire list
+    void printList() {
         Node *t = head;
-        while(t){
-            cout<<t->data<<"->";
-            t = t->next;
+        while (t) {
+            cout << t->data << "->";
+            t = t->next; // Move to the next node
         }
-        cout<<"NULL"<<endl;
+        cout << "NULL" << endl; // End of the list
     }
 };
 
@@ -195,3 +216,4 @@ int main() {
 
     return 0;
 }
+
