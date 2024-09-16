@@ -121,7 +121,7 @@ public:
         head = head->next;  // Move the head to the next node
         delete t;           // Delete the original head
     }
-
+    
     // Function to reverse the entire list
     void reverse() {
         if (!head) {
