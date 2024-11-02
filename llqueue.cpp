@@ -1,0 +1,67 @@
+//Implemnetation of queue using linked list
+#include<iostream>
+using namespace std;
+
+struct Node{
+    int data;
+    Node* next;
+
+    Node(int val): data(val), next(nullptr){}
+};
+
+class Queue{
+    Node* front;
+    Node* rear;
+    public:
+    Queue(){
+        front = nullptr;
+        rear = nullptr;
+    }
+    bool isEmpty(){
+        return front == nullptr;
+    }
+    int Front(){
+        if(isEmpty()){
+            cout<<"Queue is empty"<<endl;
+            exit(1);
+        }
+        return front->data;
+    }
+    void enqueue(int val){
+        Node* newNode = new Node(val);
+        if(isEmpty()){
+            front = newNode;
+            rear = newNode;
+        }
+        else{
+            rear->next = newNode;
+            rear = newNode;
+        }
+    }
+    void dequeue(){
+        if(isEmpty()){
+            cout<<"Queue is empty"<<endl;
+            exit(1);
+        }
+        Node* temp = front;
+        front = front->next;
+        if (front == nullptr) { // If the queue becomes empty after dequeue
+            rear = nullptr;
+        }
+        delete temp;
+    }
+};
+
+int main() {
+    Queue q;
+    q.enqueue(1);
+    q.enqueue(2);
+    q.enqueue(3);
+    cout << "Front element: " << q.Front() << endl;  // Output should be 1
+    q.dequeue();
+    cout << "Front element after dequeue: " << q.Front() << endl;  // Output should be 2
+    q.dequeue();
+    q.dequeue();
+    q.dequeue();  // Should display "Queue is empty"
+    return 0;
+}
