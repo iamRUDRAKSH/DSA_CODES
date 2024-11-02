@@ -50,6 +50,18 @@ class Queue{
         }
         delete temp;
     }
+    void printQueue(){
+        if(isEmpty()){
+            cout<<"Queue is empty"<<endl;
+            return;
+        }
+        Node* temp = front;
+        while (temp != nullptr) {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
 };
 
 int main() {
@@ -58,10 +70,12 @@ int main() {
     q.enqueue(2);
     q.enqueue(3);
     cout << "Front element: " << q.Front() << endl;  // Output should be 1
+    q.printQueue();
     q.dequeue();
     cout << "Front element after dequeue: " << q.Front() << endl;  // Output should be 2
     q.dequeue();
     q.dequeue();
     q.dequeue();  // Should display "Queue is empty"
+    q.printQueue();
     return 0;
 }
