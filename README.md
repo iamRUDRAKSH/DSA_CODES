@@ -13,6 +13,7 @@ Sorting Algorithms:
   <li>Quick Sort</li>
   <li>Shell Sort</li>
   <li>Radix Sort</li>
+  <li>Heap Sort</li>
 </ul>
 
 Searching Algorithms:
