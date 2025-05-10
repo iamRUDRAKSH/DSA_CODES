@@ -28,7 +28,6 @@ Data Structures:
   <li>Queues (Simple, Circular, Priority)</li>
   <li>Trees (Binary Tree, Binary Search Tree, AVL Tree, Red-Black Tree)</li>
   <li>Graphs (Representation, Traversals: BFS, DFS)</li>
-  <li>Hash Tables</li>
 </ul>
 
 <h3>Usage</h3>
