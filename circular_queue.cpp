@@ -1,11 +1,9 @@
 #include<iostream>
 using namespace std;
 
-struct Node{
+struct Node {
     int data;
     Node* next;
-
-    // Constructor to initialize a node with a name and 0 items
     Node(int val = 0): data(val), next(nullptr) {}
 };
 
@@ -14,60 +12,61 @@ class CircularQueue {
     Node* rear;
 
 public:
-    CircularQueue() {
-        front = rear = nullptr;  // Initially, both front and rear are null (empty queue)
-    }
+    CircularQueue() : front(nullptr), rear(nullptr) {}
 
-    // Check if the queue is empty
     bool isEmpty() {
         return front == nullptr;
     }
-    void enqueue(int val){
+
+    void enqueue(int val) {
         Node* newNode = new Node(val);
-        if(isEmpty()){
+        if (isEmpty()) {
             front = rear = newNode;
-        }
-        else{
+            rear->next = front; // 🔧 Ensure it's circular
+        } else {
             rear->next = newNode;
             rear = newNode;
-            rear->next = front;
+            rear->next = front; // Maintain circular nature
         }
     }
-    void dequeue(){
-        if(isEmpty()){
+
+    void dequeue() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
             return;
         }
-        else if(front == rear){
+        if (front == rear) {
             delete front;
             front = rear = nullptr;
-        }
-        else{
+        } else {
             Node* temp = front;
             front = front->next;
             delete temp;
-            rear->next = front;
+            rear->next = front; // 🔁 Maintain circular link
         }
     }
-    int Front(){
-        if(isEmpty()){
+
+    int Front() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
             return -1;
         }
         return front->data;
     }
-    
-    void printQueue(){
-        Node* temp = front;
-        if(isEmpty()){
+
+    void printQueue() {
+        if (isEmpty()) {
             cout << "Queue is empty" << endl;
+            return;
         }
-        else{
-            do{
-                cout << temp->data << "->";
-                temp = temp->next;
-            }while(temp != front);
-            cout <<"Front"<< endl;
-        }
-    }    
+
+        Node* temp = front;
+        do {
+            cout << temp->data << " -> ";
+            temp = temp->next;
+        } while (temp != front);
+        cout << "FRONT" << endl;
+    }
 };
 
 int main() {
@@ -76,12 +75,12 @@ int main() {
     q.enqueue(10);
     q.enqueue(20);
     q.enqueue(30);
-    q.printQueue(); // Expected output: 10 20 30
+    q.printQueue(); // Output: 10 -> 20 -> 30 -> FRONT
 
     q.dequeue();
-    q.printQueue(); // Expected output: 20 30
+    q.printQueue(); // Output: 20 -> 30 -> FRONT
 
-    cout << "Front element is: " << q.Front() << endl; // Expected output: 20
+    cout << "Front element is: " << q.Front() << endl; // Output: 20
 
     return 0;
 }

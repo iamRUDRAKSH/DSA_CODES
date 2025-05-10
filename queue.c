@@ -1,80 +1,77 @@
-/*Queue
-Rudraksh Charhate
-I division */
-
 #include<stdio.h>
 #include<limits.h>
-#include<ctype.h>
+
 #define MAX 20
 
-int queue[MAX] = {INT_MIN};
+int queue[MAX] = {INT_MIN};  // Initialize all elements to INT_MIN
 int rear = -1;
 int front = -1;
 
 void enqueue(int item) {
-  if(rear == MAX - 1)
-    printf("Queue Overflow \n");
-  else {
-    if (front == - 1)
-      front = 0;
-    rear = rear + 1;
-    queue[rear] = item;
-  }
+    if (rear == MAX - 1) {  // Queue Overflow
+        printf("Queue Overflow \n");
+    } else {
+        if (front == -1) {
+            front = 0;  // Queue was empty
+        }
+        rear++;
+        queue[rear] = item;
+    }
 }
 
 void dequeue() {
-  if(front == - 1|| front > rear) {
-    printf("Queue Underflow \n");
-    return ;
-  }
-  else {
-    printf("Element deleted from queue is : %d\n", queue[front]);
-    front = front + 1;
-  }
-  return;
+    if (front == -1 || front > rear) {  // Queue Underflow
+        printf("Queue Underflow \n");
+    } else {
+        printf("Element deleted from queue is: %d\n", queue[front]);
+        front++;  // Move the front pointer to the next element
+    }
 }
 
 int isFull() {
-  if(rear == MAX-1)
-    return 1;
-  else
+    if (rear == MAX - 1) {
+        return 1;  // The queue is full
+    }
     return 0;
 }
 
 int isEmpty() {
-  if(front > rear || front == -1)
-    return 1;
-  else
+    if (front == -1 || front > rear) {
+        return 1;  // The queue is empty
+    }
     return 0;
 }
 
-void print() {
-  for(int i = front; i <= rear;i++) {
-    if(queue[i] != INT_MIN) {
-      printf("%d ", queue[i]);
+void printQueue() {
+    if (isEmpty()) {
+        printf("Queue is empty.\n");
+    } else {
+        printf("Queue elements: ");
+        for (int i = front; i <= rear; i++) {
+            printf("%d ", queue[i]);
+        }
+        printf("\n");
     }
-  }
-  printf("\n");
-  return; 
-}     
-int main() {
-  
-  enqueue(45);
-  print();
-  enqueue(55);
-  print();
-  enqueue(65);
-  print();
-  enqueue(75);
-  print();
-  enqueue(85);
-  print();
-  dequeue();
-  print();
-  dequeue();
-  print();
-  dequeue();
-  print();
+}
 
-return 0;
-}  
+int main() {
+    enqueue(45);
+    printQueue();
+    enqueue(55);
+    printQueue();
+    enqueue(65);
+    printQueue();
+    enqueue(75);
+    printQueue();
+    enqueue(85);
+    printQueue();
+
+    dequeue();
+    printQueue();
+    dequeue();
+    printQueue();
+    dequeue();
+    printQueue();
+
+    return 0;
+}

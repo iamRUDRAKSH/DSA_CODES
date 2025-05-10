@@ -1,35 +1,43 @@
-//selection sort
-
 #include<stdio.h>
 
 int main() {
- //Initiation of array
- int n;
- printf("How many values : ");
- scanf("%d", &n);
- int A[n];
- printf("Enter vlaues in the array :\n");
- for(int i = 0; i < n;i++) {
-    scanf("%d", &A[i]);
- }
- //Sorting of array
- int max = A[0],imax = 0, i, j, temp;
- for(i = 0;i < n - 1;i++) {
-   for(j = 0;j < n -i;j++) {
-      if(A[j] > max) {
-        max = A[j];
-        imax = j;
-      }
-   }
-   temp = A[imax];
-   A[imax] = A[n-1-i];
-   A[n-1-i] = temp;
+    // Initiation of array
+    int n;
+    printf("How many values: ");
+    scanf("%d", &n);
+    int A[n];
+    
+    printf("Enter values in the array:\n");
+    for(int i = 0; i < n; i++) {
+        scanf("%d", &A[i]);
+    }
+    
+    // Sorting the array using selection sort
+    int i, j, minIndex, temp;
+    for(i = 0; i < n - 1; i++) {
+        minIndex = i;  // Initially assume the min element is at index i
+        
+        // Find the minimum element in unsorted array
+        for(j = i + 1; j < n; j++) {
+            if(A[j] < A[minIndex]) {
+                minIndex = j;
+            }
+        }
+        
+        // Swap the found minimum element with the element at index i
+        if(minIndex != i) {
+            temp = A[i];
+            A[i] = A[minIndex];
+            A[minIndex] = temp;
+        }
+    }
 
-   max = A[0];
-   imax = 0;
- }
-  for(int i = 0; i < n;i++) {
-    printf("%d ", A[i]);
- }
-return 0;
+    // Print the sorted array
+    printf("Sorted array: \n");
+    for(int i = 0; i < n; i++) {
+        printf("%d ", A[i]);
+    }
+    printf("\n");
+
+    return 0;
 }

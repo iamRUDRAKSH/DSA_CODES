@@ -1,47 +1,57 @@
-//Implemnetation of queue using linked list
 #include<iostream>
 using namespace std;
 
-struct Node{
+struct Node {
     int data;
     Node* next;
 
-    Node(int val): data(val), next(nullptr){}
+    Node(int val) : data(val), next(nullptr) {}
 };
 
-class Queue{
+class Queue {
     Node* front;
     Node* rear;
-    public:
-    Queue(){
+
+public:
+    Queue() {
         front = nullptr;
         rear = nullptr;
     }
-    bool isEmpty(){
+
+    ~Queue() {
+        // Destructor to clean up memory
+        while (!isEmpty()) {
+            dequeue();
+        }
+    }
+
+    bool isEmpty() {
         return front == nullptr;
     }
-    int Front(){
-        if(isEmpty()){
-            cout<<"Queue is empty"<<endl;
-            exit(1);
+
+    int Front() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return -1;  // Return a sentinel value
         }
         return front->data;
     }
-    void enqueue(int val){
+
+    void enqueue(int val) {
         Node* newNode = new Node(val);
-        if(isEmpty()){
+        if (isEmpty()) {
             front = newNode;
             rear = newNode;
-        }
-        else{
+        } else {
             rear->next = newNode;
             rear = newNode;
         }
     }
-    void dequeue(){
-        if(isEmpty()){
-            cout<<"Queue is empty"<<endl;
-            exit(1);
+
+    void dequeue() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return;
         }
         Node* temp = front;
         front = front->next;
@@ -50,9 +60,10 @@ class Queue{
         }
         delete temp;
     }
-    void printQueue(){
-        if(isEmpty()){
-            cout<<"Queue is empty"<<endl;
+
+    void printQueue() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
             return;
         }
         Node* temp = front;
@@ -71,11 +82,13 @@ int main() {
     q.enqueue(3);
     cout << "Front element: " << q.Front() << endl;  // Output should be 1
     q.printQueue();
+    
     q.dequeue();
     cout << "Front element after dequeue: " << q.Front() << endl;  // Output should be 2
     q.dequeue();
     q.dequeue();
     q.dequeue();  // Should display "Queue is empty"
     q.printQueue();
+    
     return 0;
 }
